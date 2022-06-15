@@ -1,28 +1,31 @@
+type AddressData = {
+  zipCode: number;
+  houseNumber: number;
+  street: string;
+  complement: string;
+  neighborhood: string;
+  city: string;
+  state: string;
+};
+
 export class Address {
   private _zipCode: number;
   private _houseNumber: number;
   private _street: string;
-  private _complement: string;
+  private _complement?: string;
   private _neighborhood: string;
   private _city: string;
   private _state: string;
 
-  constructor(
-    zipCode: number,
-    houseNumber: number,
-    street: string,
-    complement: string,
-    neighborhood: string,
-    city: string,
-    state: string
-  ) {
-    this._zipCode = zipCode;
-    this._houseNumber = houseNumber;
-    this._street = street;
-    this._complement = complement;
-    this._neighborhood = neighborhood;
-    this._city = city;
-    this._state = state;
+  constructor(addressData: AddressData) {
+    this._zipCode = addressData.zipCode;
+    this._houseNumber = addressData.houseNumber;
+    this._street = addressData.street;
+    this._complement = addressData.complement;
+    this._neighborhood = addressData.neighborhood;
+    this._city = addressData.city;
+    this._state = addressData.state;
+    this.validate();
   }
 
   get zipCode(): number {
@@ -37,7 +40,7 @@ export class Address {
     return this._street;
   }
 
-  get complement(): string {
+  get complement(): string | undefined {
     return this._complement;
   }
 
@@ -51,5 +54,26 @@ export class Address {
 
   get state(): string {
     return this._state;
+  }
+
+  private validate(): void {
+    if (this._zipCode === 0) {
+      throw new Error("Zip Code is required");
+    }
+    if (this._houseNumber === 0) {
+      throw new Error("House Number is required");
+    }
+    if (this._street.length === 0) {
+      throw new Error("Street is required");
+    }
+    if (this._neighborhood.length === 0) {
+      throw new Error("Neighborhood is required");
+    }
+    if (this._city.length === 0) {
+      throw new Error("City is required");
+    }
+    if (this._state.length === 0) {
+      throw new Error("State is required");
+    }
   }
 }
