@@ -17,10 +17,6 @@ describe("Company", () => {
     address = new Address(addressData);
   });
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
   it("Should to throw if ID is invalid", () => {
     const companyData = {
       id: "",
