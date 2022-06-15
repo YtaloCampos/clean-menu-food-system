@@ -17,6 +17,10 @@ describe("Company", () => {
     address = new Address(addressData);
   });
 
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("Should to throw if ID is invalid", () => {
     const companyData = {
       id: "",
@@ -65,5 +69,19 @@ describe("Company", () => {
       address: address,
     };
     expect(() => new Company(companyData)).toThrowError("Cnpj is required");
+  });
+
+  it("Should to call Change Address with correct params", () => {
+    const companyData = {
+      id: "any_id",
+      name: "any_name",
+      corporateName: "any_corporate_name",
+      cnpj: "any_cnpj",
+      logo: "any_logo",
+      address: address,
+    };
+    const company = new Company(companyData);
+    company.changeAddress(address);
+    expect(company.address).toBe(address);
   });
 });
