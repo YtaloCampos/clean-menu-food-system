@@ -67,7 +67,7 @@ describe("Company", () => {
     expect(() => new Company(companyData)).toThrowError("Cnpj is required");
   });
 
-  it("Should to call Change Address with correct params", () => {
+  it("Should to add address", () => {
     const companyData = {
       id: "any_id",
       name: "any_name",
