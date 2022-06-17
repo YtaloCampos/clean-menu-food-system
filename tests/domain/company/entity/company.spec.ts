@@ -66,18 +66,4 @@ describe("Company", () => {
     };
     expect(() => new Company(companyData)).toThrowError("Cnpj is required");
   });
-
-  it("Should to add address", () => {
-    const companyData = {
-      id: "any_id",
-      name: "any_name",
-      corporateName: "any_corporate_name",
-      cnpj: "any_cnpj",
-      logo: "any_logo",
-      address: address,
-    };
-    const company = new Company(companyData);
-    company.changeAddress(address);
-    expect(company.address).toBe(address);
-  });
 });

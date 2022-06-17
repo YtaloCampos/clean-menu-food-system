@@ -57,22 +57,22 @@ export class Address {
   }
 
   private validate(): void {
-    if (this._zipCode === 0) {
+    if (!this._zipCode) {
       throw new Error("Zip Code is required");
     }
-    if (this._houseNumber === 0) {
+    if (!this._houseNumber) {
       throw new Error("House Number is required");
     }
-    if (this._street.length === 0) {
+    if (!this._street) {
       throw new Error("Street is required");
     }
-    if (this._neighborhood.length === 0) {
+    if (!this._neighborhood) {
       throw new Error("Neighborhood is required");
     }
-    if (this._city.length === 0) {
+    if (!this._city) {
       throw new Error("City is required");
     }
-    if (this._state.length === 0) {
+    if (!this._state) {
       throw new Error("State is required");
     }
   }

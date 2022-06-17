@@ -4,4 +4,6 @@ type Setup = () => UpdateCompany;
 type Input = Company;
 export type UpdateCompany = (input: Input) => void;
 
-export const updateCompanyService: Setup = () => (input) => {};
+export const updateCompanyService: Setup = () => (input) => {
+  // TODO
+};

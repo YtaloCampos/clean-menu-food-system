@@ -53,21 +53,20 @@ export class Company implements Entity {
   }
 
   public validate(): void {
-    if (this._id.length === 0) {
+    if (!this._id) {
       throw new Error("ID is required");
     }
-    if (this._name.length === 0) {
+    if (!this._name) {
       throw new Error("Name is required");
     }
-    if (this._corporateName.length === 0) {
+    if (!this._corporateName) {
       throw new Error("Corporate name is required");
     }
-    if (this._cnpj.length === 0) {
+    if (!this._cnpj) {
       throw new Error("Cnpj is required");
     }
-  }
-
-  public changeAddress(address: Address): void {
-    this._address = address;
+    if (!this.address) {
+      throw new Error("Address is required");
+    }
   }
 }
