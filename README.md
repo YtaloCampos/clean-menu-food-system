@@ -1,4 +1,4 @@
-# Gargantua API
+# Menu Food System API
 
 ## SETUP
 
