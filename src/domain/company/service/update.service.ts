@@ -1,4 +1,4 @@
-import { Company } from "@/domain/company/entity";
+import { Company } from '@/domain/company/entity';
 
 type Setup = () => UpdateCompany;
 type Input = Company;

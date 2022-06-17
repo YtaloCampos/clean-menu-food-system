@@ -1,5 +1,5 @@
-import { Entity } from "@/domain/@shared";
-import { Address } from "@/domain/company/value-object";
+import { Entity } from '@/domain/@shared';
+import { Address } from '@/domain/company/value-object';
 
 type CompanyData = {
   id: string;
@@ -54,16 +54,16 @@ export class Company implements Entity {
 
   public validate(): void {
     if (!this._id) {
-      throw new Error("ID is required");
+      throw new Error('ID is required');
     }
     if (!this._name) {
-      throw new Error("Name is required");
+      throw new Error('Name is required');
     }
     if (!this._corporateName) {
-      throw new Error("Corporate name is required");
+      throw new Error('Corporate name is required');
     }
     if (!this._cnpj) {
-      throw new Error("Cnpj is required");
+      throw new Error('Cnpj is required');
     }
   }
 }

@@ -1,1 +1,1 @@
-export * from "./identity-generator.gateway";
+export * from './identity-generator.gateway';
