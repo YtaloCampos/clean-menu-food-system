@@ -1,5 +1,5 @@
 import { Entity } from "@/domain/@shared";
-import { Address } from "../value-object";
+import { Address } from "@/domain/company/value-object";
 
 type CompanyData = {
   id: string;
@@ -64,9 +64,6 @@ export class Company implements Entity {
     }
     if (!this._cnpj) {
       throw new Error("Cnpj is required");
-    }
-    if (!this.address) {
-      throw new Error("Address is required");
     }
   }
 }
