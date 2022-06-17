@@ -4,7 +4,7 @@ export interface SaveCompany {
 
 export namespace SaveCompany {
   export type Input = {
-    id: string;
+    id?: string;
     name: string;
     corporateName: string;
     cnpj: string;
