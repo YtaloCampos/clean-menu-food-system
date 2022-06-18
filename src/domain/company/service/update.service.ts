@@ -1,17 +1,17 @@
 import { Company } from '@/domain/company/entity';
 import { SaveCompany } from '@/domain/interface/repositories';
-import { GetCompany } from './get.service';
+import { ConsultCompany } from './consult.service';
 
 type Setup = (
   companyRepository: SaveCompany,
-  getCompany: GetCompany,
+  consultCompany: ConsultCompany,
 ) => UpdateCompany;
 type Input = Company;
 export type UpdateCompany = (input: Input) => void;
 
 export const updateCompanyService: Setup =
-  (companyRepository, getCompany) => async (input) => {
-    const company = await getCompany({ id: input.id });
+  (companyRepository, consultCompany) => async (input) => {
+    const company = await consultCompany({ id: input.id });
 
     if (!company) {
       throw new Error('Company not found');
