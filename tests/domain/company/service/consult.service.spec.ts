@@ -1,3 +1,4 @@
+import { Company } from '@/domain/company/entity';
 import {
   ConsultCompany,
   consultCompanyService,
@@ -6,34 +7,23 @@ import { UniqueIdGenerator } from '@/domain/interface/gateways';
 import { LoadCompany } from '@/domain/interface/repositories';
 import { UniqueIdGeneratorGateway } from '@/infrastructure/gateways';
 
-import { MockProxy, mock } from 'jest-mock-extended';
+import { mock, MockProxy } from 'jest-mock-extended';
+import { mocked } from 'ts-jest/utils';
+
+jest.mock('@/domain/company/entity');
+jest.mock('@/domain/company/value-object');
 
 describe('ConsultCompanyService', () => {
   let consultCompany: ConsultCompany;
   let companyRepository: MockProxy<LoadCompany>;
   let uniqueIdGenerator: UniqueIdGenerator;
   let uniqueId: string;
-  const companyData = {
-    id: '',
-    name: 'any_name',
-    corporateName: 'any_corporate_name',
-    cnpj: 'any_cnpj',
-    logo: 'any_logo',
-    address: {
-      zipCode: 1,
-      houseNumber: 1,
-      street: 'any_address_street',
-      complement: 'any_address_complement',
-      neighborhood: 'any_address_neighborhood',
-      city: 'any_city',
-      state: 'any_street',
-    },
-  };
+  let companyData: Company;
 
   beforeAll(() => {
     uniqueIdGenerator = new UniqueIdGeneratorGateway();
     uniqueId = uniqueIdGenerator.uuidv4();
-    companyData.id = uniqueId;
+    companyData = mocked(Company).mock.instances[0];
     companyRepository = mock();
     companyRepository.load.mockResolvedValue(companyData);
   });
@@ -46,6 +36,7 @@ describe('ConsultCompanyService', () => {
     await consultCompany({ id: uniqueId });
 
     expect(companyRepository.load).toHaveBeenCalledWith({ id: uniqueId });
+    expect(companyRepository.load).toHaveBeenCalledTimes(1);
   });
 
   it('Should to return a Company on success', async () => {
@@ -63,10 +54,12 @@ describe('ConsultCompanyService', () => {
   });
 
   it('Should to rethrow LoadCompanyRepository when throws', async () => {
-    companyRepository.load.mockRejectedValueOnce(new Error('consult_error'));
+    companyRepository.load.mockRejectedValueOnce(
+      new Error('Load company error'),
+    );
 
     const promise = consultCompany({ id: uniqueId });
 
-    await expect(promise).rejects.toThrow(new Error('consult_error'));
+    await expect(promise).rejects.toThrow(new Error('Load company error'));
   });
 });

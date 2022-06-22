@@ -26,7 +26,9 @@ describe('Company', () => {
       logo: 'any_logo',
       address: address,
     };
-    expect(() => new Company(companyData)).toThrowError('ID is required');
+    expect(() => new Company(companyData).validate()).toThrowError(
+      'ID is required',
+    );
   });
 
   it('Should to throw if Name is invalid', () => {
@@ -38,7 +40,9 @@ describe('Company', () => {
       logo: 'any_logo',
       address: address,
     };
-    expect(() => new Company(companyData)).toThrowError('Name is required');
+    expect(() => new Company(companyData).validate()).toThrowError(
+      'Name is required',
+    );
   });
 
   it('Should to throw if Corporate name is invalid', () => {
@@ -50,7 +54,7 @@ describe('Company', () => {
       logo: 'any_logo',
       address: address,
     };
-    expect(() => new Company(companyData)).toThrowError(
+    expect(() => new Company(companyData).validate()).toThrowError(
       'Corporate name is required',
     );
   });
@@ -64,6 +68,8 @@ describe('Company', () => {
       logo: 'any_logo',
       address: address,
     };
-    expect(() => new Company(companyData)).toThrowError('Cnpj is required');
+    expect(() => new Company(companyData).validate()).toThrowError(
+      'Cnpj is required',
+    );
   });
 });

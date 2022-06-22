@@ -11,7 +11,9 @@ describe('Address', () => {
       city: 'any_city',
       state: 'any_state',
     };
-    expect(() => new Address(addressData)).toThrowError('Zip Code is required');
+    expect(() => new Address(addressData).validate()).toThrowError(
+      'Zip Code is required',
+    );
   });
 
   it('Should to throw if House Number is invalid', () => {
@@ -24,7 +26,7 @@ describe('Address', () => {
       city: 'any_city',
       state: 'any_state',
     };
-    expect(() => new Address(addressData)).toThrowError(
+    expect(() => new Address(addressData).validate()).toThrowError(
       'House Number is required',
     );
   });
@@ -39,7 +41,9 @@ describe('Address', () => {
       city: 'any_city',
       state: 'any_state',
     };
-    expect(() => new Address(addressData)).toThrowError('Street is required');
+    expect(() => new Address(addressData).validate()).toThrowError(
+      'Street is required',
+    );
   });
 
   it('Should to throw if Neighborhood is invalid', () => {
@@ -52,7 +56,7 @@ describe('Address', () => {
       city: 'any_city',
       state: 'any_state',
     };
-    expect(() => new Address(addressData)).toThrowError(
+    expect(() => new Address(addressData).validate()).toThrowError(
       'Neighborhood is required',
     );
   });
@@ -67,7 +71,9 @@ describe('Address', () => {
       city: '',
       state: 'any_state',
     };
-    expect(() => new Address(addressData)).toThrowError('City is required');
+    expect(() => new Address(addressData).validate()).toThrowError(
+      'City is required',
+    );
   });
 
   it('Should to throw if State is invalid', () => {
@@ -80,6 +86,8 @@ describe('Address', () => {
       city: 'any_city',
       state: '',
     };
-    expect(() => new Address(addressData)).toThrowError('State is required');
+    expect(() => new Address(addressData).validate()).toThrowError(
+      'State is required',
+    );
   });
 });

@@ -6,8 +6,8 @@ type CompanyData = {
   name: string;
   corporateName: string;
   cnpj: string;
-  logo: string;
-  address: Address;
+  logo?: string | undefined;
+  address?: Address | undefined;
 };
 
 export class Company implements Entity {
@@ -15,17 +15,16 @@ export class Company implements Entity {
   private _name: string;
   private _corporateName: string;
   private _cnpj: string;
-  private _logo?: string;
-  private _address: Address;
+  private _logo?: string | undefined;
+  private _address?: Address | undefined;
 
   constructor(companyData: CompanyData) {
     this._id = companyData.id;
     this._name = companyData.name;
     this._corporateName = companyData.corporateName;
     this._cnpj = companyData.cnpj;
-    this._logo = companyData.logo;
-    this._address = companyData.address;
-    this.validate();
+    this._logo = companyData.logo ?? undefined;
+    this._address = companyData.address ?? undefined;
   }
 
   get id(): string {
@@ -48,8 +47,12 @@ export class Company implements Entity {
     return this._logo;
   }
 
-  get address(): Address {
-    return this._address;
+  get address(): Address | undefined {
+    return this._address ?? undefined;
+  }
+
+  set address(address: Address | undefined) {
+    this._address = address;
   }
 
   public validate(): void {

@@ -7,16 +7,16 @@ type Setup = (
   consultCompany: ConsultCompany,
 ) => UpdateCompany;
 type Input = Company;
-export type UpdateCompany = (input: Input) => void;
+export type UpdateCompany = (input: Input) => Promise<void>;
 
 export const updateCompanyService: Setup =
   (companyRepository, consultCompany) => async (input) => {
-    const company = await consultCompany({ id: input.id });
-
+    const company = await consultCompany({ id: input.id }).catch(() => {
+      throw new Error('Consult company error');
+    });
     if (!company) {
       throw new Error('Company not found');
     }
-
     await companyRepository.save(input).catch(() => {
       throw new Error('Update company error');
     });

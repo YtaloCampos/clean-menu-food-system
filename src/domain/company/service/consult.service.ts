@@ -1,9 +1,36 @@
 import { LoadCompany } from '@/domain/interface/repositories';
+import { Company } from '../entity';
+import { Address } from '../value-object';
 
 type Setup = (loadCompany: LoadCompany) => ConsultCompany;
 type Input = { id: string };
-type OutPut = LoadCompany.OutPut;
-export type ConsultCompany = (input: Input) => Promise<OutPut>;
+type OutPut = Company;
+export type ConsultCompany = (input: Input) => Promise<OutPut | undefined>;
 
-export const consultCompanyService: Setup = (loadCompany) => async (input) =>
-  await loadCompany.load({ id: input.id });
+export const consultCompanyService: Setup = (loadCompany) => async (input) => {
+  const result = await loadCompany.load({ id: input.id }).catch(() => {
+    throw new Error('Load company error');
+  });
+  if (!result) {
+    return undefined;
+  }
+  const company = new Company({
+    cnpj: result.cnpj,
+    corporateName: result.corporateName,
+    id: result.id,
+    logo: result.logo ?? undefined,
+    name: result.name,
+  });
+  if (result.address) {
+    company.address = new Address({
+      city: result.address.city,
+      complement: result.address.complement ?? undefined,
+      houseNumber: result.address.houseNumber,
+      neighborhood: result.address.neighborhood,
+      state: result.address.state,
+      street: result.address.street,
+      zipCode: result.address.zipCode,
+    });
+  }
+  return company;
+};

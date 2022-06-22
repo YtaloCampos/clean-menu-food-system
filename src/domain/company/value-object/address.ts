@@ -2,7 +2,7 @@ type AddressData = {
   zipCode: number;
   houseNumber: number;
   street: string;
-  complement: string;
+  complement?: string | undefined;
   neighborhood: string;
   city: string;
   state: string;
@@ -12,7 +12,7 @@ export class Address {
   private _zipCode: number;
   private _houseNumber: number;
   private _street: string;
-  private _complement?: string;
+  private _complement?: string | undefined;
   private _neighborhood: string;
   private _city: string;
   private _state: string;
@@ -21,11 +21,10 @@ export class Address {
     this._zipCode = addressData.zipCode;
     this._houseNumber = addressData.houseNumber;
     this._street = addressData.street;
-    this._complement = addressData.complement;
+    this._complement = addressData.complement ?? undefined;
     this._neighborhood = addressData.neighborhood;
     this._city = addressData.city;
     this._state = addressData.state;
-    this.validate();
   }
 
   get zipCode(): number {
@@ -56,7 +55,7 @@ export class Address {
     return this._state;
   }
 
-  private validate(): void {
+  public validate(): void {
     if (!this._zipCode) {
       throw new Error('Zip Code is required');
     }
