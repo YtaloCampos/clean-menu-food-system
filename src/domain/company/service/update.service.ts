@@ -1,12 +1,27 @@
-import { Company } from '@/domain/company/entity';
 import { SaveCompany } from '@/domain/interface/repositories';
+import { Address } from '../value-object';
 import { ConsultCompany } from './consult.service';
 
 type Setup = (
   companyRepository: SaveCompany,
   consultCompany: ConsultCompany,
 ) => UpdateCompany;
-type Input = Company;
+type Input = {
+  id: string;
+  name: string;
+  corporateName: string;
+  cnpj: string;
+  logo?: string;
+  address?: {
+    zipCode: number;
+    houseNumber: number;
+    street: string;
+    complement?: string;
+    neighborhood: string;
+    city: string;
+    state: string;
+  };
+};
 export type UpdateCompany = (input: Input) => Promise<void>;
 
 export const updateCompanyService: Setup =
@@ -17,7 +32,15 @@ export const updateCompanyService: Setup =
     if (!company) {
       throw new Error('Company not found');
     }
-    await companyRepository.save(input).catch(() => {
+    company.cnpj = input.cnpj;
+    company.corporateName = input.corporateName;
+    company.logo = input.logo;
+    company.name = input.name;
+    company.id = input.id;
+    if (input.address) {
+      company.address = new Address(input.address);
+    }
+    await companyRepository.save(company).catch(() => {
       throw new Error('Update company error');
     });
   };

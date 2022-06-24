@@ -31,20 +31,40 @@ export class Company implements Entity {
     return this._id;
   }
 
+  set id(id: string) {
+    this._id = id;
+  }
+
   get name(): string {
     return this._name;
+  }
+
+  set name(name: string) {
+    this._name = name;
   }
 
   get corporateName(): string {
     return this._corporateName;
   }
 
+  set corporateName(corporateName: string) {
+    this._corporateName = corporateName;
+  }
+
   get cnpj(): string {
     return this._cnpj;
   }
 
+  set cnpj(cnpj: string) {
+    this._cnpj = cnpj;
+  }
+
   get logo(): string | undefined {
     return this._logo;
+  }
+
+  set logo(logo: string | undefined) {
+    this._logo = logo ?? undefined;
   }
 
   get address(): Address | undefined {

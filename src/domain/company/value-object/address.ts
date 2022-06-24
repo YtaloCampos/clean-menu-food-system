@@ -31,28 +31,56 @@ export class Address {
     return this._zipCode;
   }
 
+  set zipCode(zipCode: number) {
+    this._zipCode = zipCode;
+  }
+
   get houseNumber(): number {
     return this._houseNumber;
+  }
+
+  set houseNumber(houseNumber: number) {
+    this._houseNumber = houseNumber;
   }
 
   get street(): string {
     return this._street;
   }
 
+  set street(street: string) {
+    this._street = street;
+  }
+
   get complement(): string | undefined {
     return this._complement;
+  }
+
+  set complement(complement: string | undefined) {
+    this._complement = complement;
   }
 
   get neighborhood(): string {
     return this._neighborhood;
   }
 
+  set neighborhood(neighborhood: string) {
+    this._neighborhood = neighborhood;
+  }
+
   get city(): string {
     return this._city;
   }
 
+  set city(city: string) {
+    this._city = city;
+  }
+
   get state(): string {
     return this._state;
+  }
+
+  set state(state: string) {
+    this._state = state;
   }
 
   public validate(): void {

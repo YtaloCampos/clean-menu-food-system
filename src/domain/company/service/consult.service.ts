@@ -18,13 +18,13 @@ export const consultCompanyService: Setup = (loadCompany) => async (input) => {
     cnpj: result.cnpj,
     corporateName: result.corporateName,
     id: result.id,
-    logo: result.logo ?? undefined,
+    logo: result.logo,
     name: result.name,
   });
   if (result.address) {
     company.address = new Address({
       city: result.address.city,
-      complement: result.address.complement ?? undefined,
+      complement: result.address.complement,
       houseNumber: result.address.houseNumber,
       neighborhood: result.address.neighborhood,
       state: result.address.state,
