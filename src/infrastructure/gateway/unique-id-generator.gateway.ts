@@ -1,4 +1,4 @@
-import { UniqueIdGenerator } from '@/domain/gateways/interface';
+import { UniqueIdGenerator } from '@/domain/gateway/interface';
 import { v4 as uuidv4, validate } from 'uuid';
 
 export class UniqueIdGeneratorGateway implements UniqueIdGenerator {
