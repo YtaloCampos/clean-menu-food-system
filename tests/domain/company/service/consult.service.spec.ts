@@ -3,7 +3,7 @@ import {
   ConsultCompany,
   consultCompanyService,
 } from '@/domain/company/service';
-import { UniqueIdGenerator } from '@/domain/interface/gateway/interface';
+import { UniqueIdGenerator } from '@/domain/interface/gateway';
 import { LoadCompany } from '@/domain/company/repository';
 import { UniqueIdGeneratorGateway } from '@/infrastructure/gateway';
 

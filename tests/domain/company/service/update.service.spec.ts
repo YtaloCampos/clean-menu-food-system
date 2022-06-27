@@ -3,7 +3,7 @@ import {
   UpdateCompany,
   updateCompanyService,
 } from '@/domain/company/service';
-import { UniqueIdGenerator } from '@/domain/interface/gateway/interface';
+import { UniqueIdGenerator } from '@/domain/interface/gateway';
 import { SaveCompany } from '@/domain/company/repository';
 import { UniqueIdGeneratorGateway } from '@/infrastructure/gateway';
 import { mock, MockProxy } from 'jest-mock-extended';
