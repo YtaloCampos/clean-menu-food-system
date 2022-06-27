@@ -5,7 +5,7 @@ import {
 } from '@/domain/company/service';
 import { UniqueIdGenerator } from '@/domain/gateways/interface';
 import { SaveCompany } from '@/domain/company/repository';
-import { UniqueIdGeneratorGateway } from '@/infrastructure/gateways';
+import { UniqueIdGeneratorGateway } from '@/infrastructure/gateway';
 import { mock, MockProxy } from 'jest-mock-extended';
 
 describe('UpdateCompanyService', () => {
