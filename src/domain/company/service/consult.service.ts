@@ -1,4 +1,4 @@
-import { LoadCompany } from '@/domain/interface/repositories';
+import { LoadCompany } from '@/domain/company/repositories';
 import { Company } from '../entity';
 import { Address } from '../value-object';
 

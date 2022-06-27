@@ -1,3 +1,5 @@
+import { Company } from '../entity';
+
 export interface LoadCompany {
   load: (input: LoadCompany.Input) => Promise<LoadCompany.OutPut>;
 }
@@ -24,4 +26,12 @@ export namespace LoadCompany {
         };
       }
     | undefined;
+}
+
+export interface SaveCompany {
+  save: (input: SaveCompany.Input) => Promise<void>;
+}
+
+export namespace SaveCompany {
+  export type Input = Company;
 }
