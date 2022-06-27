@@ -13,14 +13,14 @@ export class CompanyRepositoryInMemory implements LoadCompany, SaveCompany {
     return this.create(input);
   }
 
-  private async create(input: SaveCompany.Input): Promise<void> {
-    this.companies.push(input);
-  }
-
-  private async update(input: SaveCompany.Input): Promise<void> {
+  public async update(input: SaveCompany.Input): Promise<void> {
     const index = this.companies.findIndex(
       (company) => company.id === input.id,
     );
     this.companies[index] = input;
+  }
+
+  private async create(input: SaveCompany.Input): Promise<void> {
+    this.companies.push(input);
   }
 }
