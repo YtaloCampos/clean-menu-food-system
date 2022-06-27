@@ -2,7 +2,7 @@ import { Company } from '@/domain/company/entity';
 import { CompanyRepositoryInMemory } from '@/infrastructure/company/repository/in-memory';
 
 import { Address } from '@/domain/company/value-object';
-import { UniqueIdGenerator } from '@/domain/gateway/interface';
+import { UniqueIdGenerator } from '@/domain/interface/gateway/interface';
 import { UniqueIdGeneratorGateway } from '@/infrastructure/gateway';
 
 jest.mock('@/domain/company/entity');
