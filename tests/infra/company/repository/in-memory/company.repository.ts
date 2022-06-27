@@ -1,5 +1,5 @@
 import { Company } from '@/domain/company/entity';
-import { LoadCompany, SaveCompany } from '@/domain/company/repositories';
+import { LoadCompany, SaveCompany } from '@/domain/company/repository';
 
 export class CompanyRepositoryInMemory implements LoadCompany, SaveCompany {
   constructor(private companies: Company[] = []) {}

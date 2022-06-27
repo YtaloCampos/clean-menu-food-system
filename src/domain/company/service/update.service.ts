@@ -1,4 +1,4 @@
-import { SaveCompany } from '@/domain/company/repositories';
+import { SaveCompany } from '@/domain/company/repository';
 import { Address } from '../value-object';
 import { ConsultCompany } from './consult.service';
 

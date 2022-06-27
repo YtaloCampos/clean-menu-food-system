@@ -4,7 +4,7 @@ import {
   consultCompanyService,
 } from '@/domain/company/service';
 import { UniqueIdGenerator } from '@/domain/interface/gateways';
-import { LoadCompany } from '@/domain/company/repositories';
+import { LoadCompany } from '@/domain/company/repository';
 import { UniqueIdGeneratorGateway } from '@/infrastructure/gateways';
 
 import { mock, MockProxy } from 'jest-mock-extended';
