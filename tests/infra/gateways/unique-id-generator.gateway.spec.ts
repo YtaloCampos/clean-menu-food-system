@@ -1,4 +1,4 @@
-import { UniqueIdGenerator } from '@/domain/interface/gateways';
+import { UniqueIdGenerator } from '@/domain/gateways/interface';
 import { UniqueIdGeneratorGateway } from '@/infrastructure/gateways';
 
 describe('UniqueIdGeneratorGateway', () => {
