@@ -2,25 +2,19 @@ import { Company } from '@/domain/company/entity';
 import { CompanyRepositoryInMemory } from '@/infrastructure/company/repository/in-memory';
 
 import { Address } from '@/domain/company/value-object';
-import { UniqueIdGenerator } from '@/domain/interface/gateway';
-import { UniqueIdGeneratorGateway } from '@/infrastructure/gateway';
 
 jest.mock('@/domain/company/entity');
 jest.mock('@/domain/company/value-object');
 
 describe('CompanyRepositoryInMemory', () => {
   let companyRepositoryInMemory: CompanyRepositoryInMemory;
-  let uniqueIdGenerator: UniqueIdGenerator;
-  let uniqueId: string;
   let companyData: Company;
 
   beforeAll(() => {
-    uniqueIdGenerator = new UniqueIdGeneratorGateway();
-    uniqueId = uniqueIdGenerator.uuidv4();
     companyData = new Company({
       cnpj: 'any_cnpj',
       corporateName: 'any_corporate_name',
-      id: uniqueId,
+      id: 'any_id',
       name: 'any_name',
       logo: 'any_logo',
       address: new Address({

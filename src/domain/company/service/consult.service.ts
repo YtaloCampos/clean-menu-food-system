@@ -4,15 +4,15 @@ import { Address } from '../value-object';
 
 type Setup = (loadCompany: LoadCompany) => ConsultCompany;
 type Input = { id: string };
-type OutPut = Company;
-export type ConsultCompany = (input: Input) => Promise<OutPut | undefined>;
+type OutPut = Company | null;
+export type ConsultCompany = (input: Input) => Promise<OutPut>;
 
 export const consultCompanyService: Setup = (loadCompany) => async (input) => {
   const result = await loadCompany.load({ id: input.id }).catch(() => {
     throw new Error('Load company error');
   });
   if (!result) {
-    return undefined;
+    return null;
   }
   const company = new Company({
     cnpj: result.cnpj,

@@ -1,26 +1,24 @@
+import { Company } from '@/domain/company/entity';
+import { SaveCompany } from '@/domain/company/repository';
 import {
   ConsultCompany,
   UpdateCompany,
   updateCompanyService,
 } from '@/domain/company/service';
-import { UniqueIdGenerator } from '@/domain/interface/gateway';
-import { SaveCompany } from '@/domain/company/repository';
-import { UniqueIdGeneratorGateway } from '@/infrastructure/gateway';
+import { Address } from '@/domain/company/value-object';
 import { mock, MockProxy } from 'jest-mock-extended';
 
 describe('UpdateCompanyService', () => {
   let updateCompany: UpdateCompany;
   let consultCompany: MockProxy<ConsultCompany>;
   let companyRepository: MockProxy<SaveCompany>;
-  let uniqueIdGenerator: UniqueIdGenerator;
-  let uniqueId: string;
-  const companyData = {
-    id: '',
+  const companyData = new Company({
+    id: 'any_id',
     name: 'any_name',
     corporateName: 'any_corporate_name',
     cnpj: 'any_cnpj',
     logo: 'any_logo',
-    address: {
+    address: new Address({
       zipCode: 1,
       houseNumber: 1,
       street: 'any_address_street',
@@ -28,13 +26,10 @@ describe('UpdateCompanyService', () => {
       neighborhood: 'any_address_neighborhood',
       city: 'any_city',
       state: 'any_street',
-    },
-  };
+    }),
+  });
 
   beforeAll(() => {
-    uniqueIdGenerator = new UniqueIdGeneratorGateway();
-    uniqueId = uniqueIdGenerator.uuidv4();
-    companyData.id = uniqueId;
     companyRepository = mock();
     companyRepository.save.mockResolvedValue(undefined);
     consultCompany = jest.fn().mockResolvedValue(companyData);
@@ -46,7 +41,7 @@ describe('UpdateCompanyService', () => {
 
   it('Should to call consultCompany with correct input', async () => {
     await updateCompany(companyData);
-    expect(consultCompany).toHaveBeenCalledWith({ id: uniqueId });
+    expect(consultCompany).toHaveBeenCalledWith({ id: 'any_id' });
   });
 
   it('Should to call SaveCompanyRepository with correct input', async () => {
@@ -66,7 +61,7 @@ describe('UpdateCompanyService', () => {
   });
 
   it('Should to rethrow when throws a Company not found', async () => {
-    consultCompany = jest.fn().mockResolvedValueOnce(undefined);
+    consultCompany = jest.fn().mockResolvedValueOnce(null);
     updateCompany = updateCompanyService(companyRepository, consultCompany);
 
     const promise = updateCompany(companyData);

@@ -25,6 +25,7 @@ export namespace LoadCompany {
           state: string;
         };
       }
+    | null
     | undefined;
 }
 

@@ -1,29 +1,34 @@
 import { Company } from '@/domain/company/entity';
+import { LoadCompany } from '@/domain/company/repository';
 import {
   ConsultCompany,
   consultCompanyService,
 } from '@/domain/company/service';
-import { UniqueIdGenerator } from '@/domain/interface/gateway';
-import { LoadCompany } from '@/domain/company/repository';
-import { UniqueIdGeneratorGateway } from '@/infrastructure/gateway';
+import { Address } from '@/domain/company/value-object';
 
 import { mock, MockProxy } from 'jest-mock-extended';
-import { mocked } from 'ts-jest/utils';
-
-jest.mock('@/domain/company/entity');
-jest.mock('@/domain/company/value-object');
 
 describe('ConsultCompanyService', () => {
   let consultCompany: ConsultCompany;
   let companyRepository: MockProxy<LoadCompany>;
-  let uniqueIdGenerator: UniqueIdGenerator;
-  let uniqueId: string;
-  let companyData: Company;
+  const companyData = new Company({
+    id: 'any_id',
+    name: 'any_name',
+    corporateName: 'any_corporate_name',
+    cnpj: 'any_cnpj',
+    logo: 'any_logo',
+    address: new Address({
+      zipCode: 1,
+      houseNumber: 1,
+      street: 'any_address_street',
+      complement: 'any_address_complement',
+      neighborhood: 'any_address_neighborhood',
+      city: 'any_city',
+      state: 'any_street',
+    }),
+  });
 
   beforeAll(() => {
-    uniqueIdGenerator = new UniqueIdGeneratorGateway();
-    uniqueId = uniqueIdGenerator.uuidv4();
-    companyData = mocked(Company).mock.instances[0];
     companyRepository = mock();
     companyRepository.load.mockResolvedValue(companyData);
   });
@@ -33,24 +38,24 @@ describe('ConsultCompanyService', () => {
   });
 
   it('Should to call LoadCompanyRepository with correct input', async () => {
-    await consultCompany({ id: uniqueId });
+    await consultCompany({ id: 'any_id' });
 
-    expect(companyRepository.load).toHaveBeenCalledWith({ id: uniqueId });
+    expect(companyRepository.load).toHaveBeenCalledWith({ id: 'any_id' });
     expect(companyRepository.load).toHaveBeenCalledTimes(1);
   });
 
   it('Should to return a Company on success', async () => {
-    const consultCompanyOutput = await consultCompany({ id: uniqueId });
+    const consultCompanyOutput = await consultCompany({ id: 'any_id' });
 
-    expect(consultCompanyOutput).toBe(companyData);
+    expect(consultCompanyOutput).toMatchObject(companyData);
   });
 
-  it('Should to return undefined when Company does not exist', async () => {
-    companyRepository.load.mockResolvedValueOnce(undefined);
+  it('Should to return null when Company does not exist', async () => {
+    companyRepository.load.mockResolvedValueOnce(null);
 
-    const consultCompanyOutput = await consultCompany({ id: uniqueId });
+    const consultCompanyOutput = await consultCompany({ id: 'any_id' });
 
-    expect(consultCompanyOutput).toBe(undefined);
+    expect(consultCompanyOutput).toBe(null);
   });
 
   it('Should to rethrow LoadCompanyRepository when throws', async () => {
@@ -58,7 +63,7 @@ describe('ConsultCompanyService', () => {
       new Error('Load company error'),
     );
 
-    const promise = consultCompany({ id: uniqueId });
+    const promise = consultCompany({ id: 'any_id' });
 
     await expect(promise).rejects.toThrow(new Error('Load company error'));
   });
