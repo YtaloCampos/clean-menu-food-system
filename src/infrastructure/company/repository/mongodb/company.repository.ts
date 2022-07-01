@@ -1,16 +1,16 @@
 import { LoadCompany, SaveCompany } from '@/domain/company/repository';
-import { Model, model, Schema, Types } from 'mongoose';
-import { CompanyDocument, companySchema } from './schema';
+import { Types } from 'mongoose';
+import { MongoRepository } from './repository';
+import { companySchema } from './schema';
 
-export class CompanyRepository implements SaveCompany, LoadCompany {
-  private model: Model<CompanyDocument>;
-
-  constructor() {
-    this.model = this.getModel(companySchema);
-  }
-
+export class CompanyRepository
+  extends MongoRepository
+  implements SaveCompany, LoadCompany {
   public async load({ id }: LoadCompany.Input): Promise<LoadCompany.OutPut> {
-    return await this.model.findOne({ id: new Types.ObjectId(id) });
+    const company = this.getModel('Company', companySchema);
+    return await company.findOne({
+      id: new Types.ObjectId(id),
+    });
   }
 
   public async save(input: SaveCompany.Input): Promise<void> {
@@ -25,7 +25,14 @@ export class CompanyRepository implements SaveCompany, LoadCompany {
     logo,
     name,
   }: SaveCompany.Input): Promise<void> {
-    await this.model.create({ address, cnpj, corporateName, logo, name });
+    const company = this.getModel('Company', companySchema);
+    await company.create({
+      address,
+      cnpj,
+      corporateName,
+      logo,
+      name,
+    });
   }
 
   private async update({
@@ -36,7 +43,8 @@ export class CompanyRepository implements SaveCompany, LoadCompany {
     logo,
     name,
   }: SaveCompany.Input): Promise<void> {
-    await this.model.findOneAndUpdate(
+    const company = this.getModel('Company', companySchema);
+    await company.findOneAndUpdate(
       { _id: new Types.ObjectId(id) },
       {
         address,
@@ -46,9 +54,5 @@ export class CompanyRepository implements SaveCompany, LoadCompany {
         name,
       },
     );
-  }
-
-  private getModel(schema: Schema<CompanyDocument>): Model<CompanyDocument> {
-    return model<CompanyDocument>('Company', schema);
   }
 }
