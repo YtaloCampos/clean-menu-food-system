@@ -22,7 +22,7 @@ export class MongoConnection {
 
   public async disconnect(): Promise<void> {
     if (!this.connection) {
-      throw new Error('There is no longer a mongodb connection active');
+      throw new Error('There is no longer a mongodb connection deactive');
     }
     await mongoose.disconnect();
     this.connection = undefined;

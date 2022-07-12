@@ -1,5 +1,5 @@
 import '../config/module-alias';
 import dotenv from 'dotenv';
-import './../../infrastructure/company/repository/mongodb/company.repository';
+import '../../infrastructure/company/repository/company.repository';
 
 dotenv.config();
