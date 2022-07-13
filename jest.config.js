@@ -10,4 +10,4 @@ module.exports = {
     '\\.ts$': 'ts-jest',
   },
   setupFiles: ['dotenv/config'],
-};
+}

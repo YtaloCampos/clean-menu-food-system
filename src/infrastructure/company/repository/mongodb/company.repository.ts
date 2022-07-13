@@ -1,6 +1,6 @@
 import { LoadCompany, SaveCompany } from '@/domain/company/repository';
-import { MongoRepository } from './mongodb/repository';
-import { companySchema } from './mongodb/schema';
+import { MongoRepository } from './repository';
+import { companySchema } from './schema';
 
 export class CompanyRepository
   extends MongoRepository
