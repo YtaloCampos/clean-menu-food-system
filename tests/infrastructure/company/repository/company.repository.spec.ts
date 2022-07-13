@@ -1,11 +1,11 @@
 import { Company } from '@/domain/company/entity';
 import { Address } from '@/domain/company/value-object';
-import { CompanyRepository } from '@/infrastructure/company/repository/company.repository';
+import { CompanyRepository } from '@/infrastructure/company/repository/mongodb/company.repository';
 import { MongoConnection } from '@/infrastructure/company/repository/mongodb/connection';
 import { MongoRepository } from '@/infrastructure/company/repository/mongodb/repository';
 import {
   CompanyDocument,
-  companySchema,
+  companySchema
 } from '@/infrastructure/company/repository/mongodb/schema';
 import { env } from '@/main/config/env';
 import { Model } from 'mongoose';
