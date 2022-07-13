@@ -8,19 +8,25 @@ export class CompanyRepositoryInMemory implements LoadCompany, SaveCompany {
     return this.companies.find((company) => company.id === id);
   }
 
-  public async save(input: SaveCompany.Input): Promise<void> {
+  public async save(input: SaveCompany.Input): Promise<SaveCompany.OutPut> {
     if (input.id) return this.update(input);
     return this.create(input);
   }
 
-  public async update(input: SaveCompany.Input): Promise<void> {
+  public async update(input: SaveCompany.Input): Promise<SaveCompany.OutPut> {
     const index = this.companies.findIndex(
       (company) => company.id === input.id,
     );
     this.companies[index] = input;
+    return {
+      id: input.id,
+    };
   }
 
-  private async create(input: SaveCompany.Input): Promise<void> {
+  private async create(input: SaveCompany.Input): Promise<SaveCompany.OutPut> {
     this.companies.push(input);
+    return {
+      id: input.id,
+    };
   }
 }

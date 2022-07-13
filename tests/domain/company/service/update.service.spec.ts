@@ -31,7 +31,7 @@ describe('UpdateCompanyService', () => {
 
   beforeAll(() => {
     companyRepository = mock();
-    companyRepository.save.mockResolvedValue(undefined);
+    companyRepository.save.mockResolvedValue({ id: 'any_id' });
     consultCompany = jest.fn().mockResolvedValue(companyData);
   });
 

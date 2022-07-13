@@ -5,11 +5,11 @@ import { companySchema } from './mongodb/schema';
 export class CompanyRepository
   extends MongoRepository
   implements SaveCompany, LoadCompany {
-  private companyModel = this.getModel('Company', companySchema);
+  private readonly companyModel = this.getModel('Company', companySchema);
 
   public async load({ id }: LoadCompany.Input): Promise<LoadCompany.OutPut> {
     return await this.companyModel.findOne({
-      id: this.getId(id),
+      _id: this.getId(id),
     });
   }
 
@@ -20,8 +20,8 @@ export class CompanyRepository
     id,
     logo,
     name,
-  }: SaveCompany.Input): Promise<void> {
-    await this.companyModel.updateOne(
+  }: SaveCompany.Input): Promise<SaveCompany.OutPut> {
+    const result = await this.companyModel.findOneAndUpdate(
       { _id: this.getId(id) },
       {
         $set: {
@@ -34,7 +34,11 @@ export class CompanyRepository
       },
       {
         upsert: true,
+        new: true,
       },
     );
+    return {
+      id: result.id,
+    };
   }
 }

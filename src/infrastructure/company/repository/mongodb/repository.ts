@@ -1,5 +1,7 @@
-import { Model, Schema, Types } from 'mongoose';
+import mongoose, { Model, Schema } from 'mongoose';
 import { MongoConnection } from './connection';
+
+type ObjectId = mongoose.Types.ObjectId;
 
 export abstract class MongoRepository {
   constructor(
@@ -10,7 +12,7 @@ export abstract class MongoRepository {
     return this.connection.getModel<Entity>(name, schema);
   }
 
-  public getId(id: string): Types.ObjectId {
-    return new Types.ObjectId(id);
+  public getId(id: string | undefined): ObjectId {
+    return this.connection.getId(id);
   }
 }

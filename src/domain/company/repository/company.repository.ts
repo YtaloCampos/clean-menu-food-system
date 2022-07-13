@@ -30,9 +30,10 @@ export namespace LoadCompany {
 }
 
 export interface SaveCompany {
-  save: (input: SaveCompany.Input) => Promise<void>;
+  save: (input: SaveCompany.Input) => Promise<SaveCompany.OutPut>;
 }
 
 export namespace SaveCompany {
   export type Input = Company;
+  export type OutPut = { id: string };
 }

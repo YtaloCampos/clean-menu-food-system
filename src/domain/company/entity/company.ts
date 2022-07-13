@@ -89,4 +89,22 @@ export class Company implements Entity {
       throw new Error('Cnpj is required');
     }
   }
+
+  public toObject(): object {
+    return {
+      name: this._name,
+      corporateName: this._corporateName,
+      cnpj: this._cnpj,
+      logo: this._logo,
+      address: {
+        zipCode: this.address?.zipCode,
+        houseNumber: this.address?.houseNumber,
+        street: this.address?.street,
+        complement: this.address?.complement,
+        neighborhood: this.address?.neighborhood,
+        city: this.address?.city,
+        state: this.address?.state,
+      },
+    };
+  }
 }
