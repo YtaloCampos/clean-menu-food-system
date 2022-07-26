@@ -5,7 +5,7 @@ import { MongoConnection } from '@/infrastructure/company/repository/mongodb/con
 import { MongoRepository } from '@/infrastructure/company/repository/mongodb/repository';
 import {
   CompanyDocument,
-  companySchema
+  companySchema,
 } from '@/infrastructure/company/repository/mongodb/schema';
 import { env } from '@/main/config/env';
 import { Model } from 'mongoose';

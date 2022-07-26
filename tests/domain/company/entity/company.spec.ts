@@ -72,4 +72,30 @@ describe('Company', () => {
       'Cnpj is required',
     );
   });
+
+  it('Should to check if toObject is valid', () => {
+    const companyData = {
+      id: 'any_id',
+      name: 'any_name',
+      corporateName: 'any_corporate_name',
+      cnpj: 'any_cnpj',
+      logo: 'any_logo',
+      address: new Address(addressData),
+    };
+    expect(new Company(companyData).toObject()).toMatchObject({
+      name: companyData.name,
+      corporateName: companyData.corporateName,
+      cnpj: companyData.cnpj,
+      logo: companyData.logo,
+      address: {
+        zipCode: 1,
+        houseNumber: 1,
+        street: 'any_street',
+        complement: 'any_complement',
+        neighborhood: 'any_neighborhood',
+        city: 'any_city',
+        state: 'any_state',
+      },
+    });
+  });
 });
