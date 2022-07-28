@@ -74,7 +74,7 @@ describe('CompanyRepository', () => {
       const createdCompany = await companyRepository.save(companyData);
 
       const result = await companyModel.findOne({
-        _id: connection.getId(createdCompany?.id),
+        _id: createdCompany?.id,
       });
 
       expect(connection.getId(createdCompany?.id)).toEqual(result?._id);
