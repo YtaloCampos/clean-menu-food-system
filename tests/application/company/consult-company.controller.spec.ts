@@ -33,7 +33,7 @@ describe('ConsultCompanyController', () => {
 
   it('Should return 400 if companyId is empty', async () => {
     const httpResponse = await consultCompanyController.handle({
-      companyId: '',
+      id: '',
     });
 
     expect(httpResponse).toEqual({
