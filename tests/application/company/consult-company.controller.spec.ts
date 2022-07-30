@@ -72,6 +72,18 @@ describe('ConsultCompanyController', () => {
     });
   });
 
+  it('Should return 404 if company not found', async () => {
+    consultCompany.mockResolvedValueOnce(null);
+    const httpResponse = await consultCompanyController.handle({
+      id: 'any_id',
+    });
+
+    expect(httpResponse).toEqual({
+      statusCode: 404,
+      data: new Error('Company not found'),
+    });
+  });
+
   it('Should return 200 if consult company succeds', async () => {
     const httpResponse = await consultCompanyController.handle({
       id: 'any_id',
