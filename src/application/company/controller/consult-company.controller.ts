@@ -19,9 +19,23 @@ export class ConsultCompanyController {
     try {
       const result = await this.consultCompany({ id });
 
+      if (!result) {
+        return {
+          statusCode: 404,
+          data: new Error('Company not found'),
+        };
+      }
+
+      if (result instanceof Company) {
+        return {
+          statusCode: 200,
+          data: result,
+        };
+      }
+
       return {
-        statusCode: 200,
-        data: result as Company,
+        statusCode: 401,
+        data: new Error('Consult company fails'),
       };
     } catch (error) {
       return {
