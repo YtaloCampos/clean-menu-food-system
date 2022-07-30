@@ -1,4 +1,5 @@
 import { ConsultCompanyController } from '@/application/company/controller';
+import { badRequest, notFound, ok, serverError } from '@/application/helper';
 import { Company } from '@/domain/company/entity';
 import { Address } from '@/domain/company/value-object';
 
@@ -45,10 +46,9 @@ describe('ConsultCompanyController', () => {
   it('Should return 400 if id is null', async () => {
     const httpResponse = await consultCompanyController.handle({ id: null });
 
-    expect(httpResponse).toEqual({
-      statusCode: 400,
-      data: new Error('The field companyId is required'),
-    });
+    expect(httpResponse).toEqual(
+      badRequest(new Error('The field companyId is required')),
+    );
   });
 
   it('Should return 400 if id is undefined', async () => {
@@ -56,10 +56,9 @@ describe('ConsultCompanyController', () => {
       id: undefined,
     });
 
-    expect(httpResponse).toEqual({
-      statusCode: 400,
-      data: new Error('The field companyId is required'),
-    });
+    expect(httpResponse).toEqual(
+      badRequest(new Error('The field companyId is required')),
+    );
   });
 
   it('Shoud call consult company with correct params', async () => {
@@ -78,10 +77,7 @@ describe('ConsultCompanyController', () => {
       id: 'any_id',
     });
 
-    expect(httpResponse).toEqual({
-      statusCode: 404,
-      data: new Error('Company not found'),
-    });
+    expect(httpResponse).toEqual(notFound(new Error('Company not found')));
   });
 
   it('Should return 200 if consult company succeds', async () => {
@@ -89,10 +85,7 @@ describe('ConsultCompanyController', () => {
       id: 'any_id',
     });
 
-    expect(httpResponse).toEqual({
-      statusCode: 200,
-      data: companyData,
-    });
+    expect(httpResponse).toEqual(ok(companyData));
   });
 
   it('Should return 500 if consult company throws', async () => {
@@ -101,9 +94,8 @@ describe('ConsultCompanyController', () => {
       id: 'any_id',
     });
 
-    expect(httpResponse).toEqual({
-      statusCode: 500,
-      data: new Error('Consult company fails'),
-    });
+    expect(httpResponse).toEqual(
+      serverError(new Error('Consult company fails')),
+    );
   });
 });
